@@ -6,14 +6,89 @@ from bs4 import BeautifulSoup
 
 CONST_TAILLE_PARSE=9
 
+#/////////////////////////////////////////////////////////////////////////
+
+def splitPokemonType(pokemon):
+
+    type=[]
+    pos=""
+    print(pokemon.getData()[1])
+    taille_lim=len(pokemon.getData()[1])
+    cpt=0
+
+
+    for i in range(len(pokemon.getData()[1])):
+      if pokemon.getData()[1][i].isupper():
+
+      #    print(pokemon.getData()[1][i])
+
+          #liste.append(pokemon.getData()[1][i])
+          pos+=str(i)
+          cpt+=1
+    if cpt>=2:
+
+        for i in range(len(pos)):
+
+            if(len(pos)-i-1)!=0:
+
+                if i < len(pos):
+    #                print(i)
+                    type.append(pokemon.getData()[1][int(pos[i]):int(pos[(i+1)])])
+            else:
+                #type.append(pokemon.getData()[1][int(pos[i]):int(pos[len(pos)])])
+                type.append(pokemon.getData()[1][int(pos[i]):taille_lim])
+
+    else:
+        type.append(pokemon.getData()[1])
+
+    return type
+
+
+def splitType(chaine):
+
+    type=[]
+    pos=""
+  #  print(chaine)
+    taille_lim=len(chaine)
+    cpt=0
+
+
+    for i in range(len(chaine)):
+      if chaine[i].isupper():
+
+      #    print(pokemon.getData()[1][i])
+
+          #liste.append(pokemon.getData()[1][i])
+          pos+=str(i)
+          cpt+=1
+    if cpt>=2:
+
+        for i in range(len(pos)):
+
+            if(len(pos)-i-1)!=0:
+
+                if i < len(pos):
+    #                print(i)
+                    type.append(chaine[int(pos[i]):int(pos[(i+1)])])
+            else:
+                #type.append(pokemon.getData()[1][int(pos[i]):int(pos[len(pos)])])
+                type.append(chaine[int(pos[i]):taille_lim])
+
+    else:
+        type.append(chaine)
+
+    return type
+
 
 #////////////////////////////////////////////////////////////////////
 class Pokemon:
 
-    def __init__(self,name,type,total,attack,defense,sp_attack,sp_defense,speed):
+    def __init__(self,name,type_no_splited,total,attack,defense,sp_attack,sp_defense,speed):
 
+        self.CONVERTED=False
+        self.type_splitted =[]
         self.name = name
-        self.type = type
+        self.type_no_splitted = type_no_splited
         self.total = total
         self.attack = attack
         self.defense = defense
@@ -24,10 +99,10 @@ class Pokemon:
         pass
 
     def getData(self):
-        data = []
 
+        data = []
         data.append(self.name)
-        data.append(self.type)
+        data.append(self.type_no_splitted)
         data.append(self.total)
         data.append(self.attack)
         data.append(self.defense)
@@ -36,6 +111,12 @@ class Pokemon:
         data.append(self.speed)
 
         return data
+
+    def setTypeSplited(self,listeType):
+
+        self.type_no_splitted=listeType
+        self.CONVERTED=True
+
 
     '''
     #pass= permet de redefinir constructeur
@@ -81,40 +162,6 @@ def __init__(self,name,type,total,attack,defense,sp_attack,sp_defense,speed ):
 '''
 #////////////////////////////FUNCTION/////////////////////////////////
 
-def splitPokemonType(pokemon):
-
-    type=[]
-    pos=""
-    print(pokemon.getData()[1])
-    taille_lim=len(pokemon.getData()[1])
-    cpt=0
-
-
-    for i in range(len(pokemon.getData()[1])):
-      if pokemon.getData()[1][i].isupper():
-
-      #    print(pokemon.getData()[1][i])
-
-          #liste.append(pokemon.getData()[1][i])
-          pos+=str(i)
-          cpt+=1
-    if cpt>=2:
-
-        for i in range(len(pos)):
-
-            if(len(pos)-i-1)!=0:
-
-                if i < len(pos):
-                    print(i)
-                    type.append(pokemon.getData()[1][int(pos[i]):int(pos[(i+1)])])
-            else:
-                #type.append(pokemon.getData()[1][int(pos[i]):int(pos[len(pos)])])
-                type.append(pokemon.getData()[1][int(pos[i]):taille_lim])
-
-    else:
-        type.append(pokemon.getData()[1])
-
-    return type
 
 
 
@@ -198,9 +245,11 @@ with open("pokemon.html") as file:
 
 print("\ncpt_pokemon = %i\n"%(cpt_pokemon))
 
-
+'''
 for pokemon in listePokemon:
-    print(pokemon.getData())
+    print(splitPokemonType(pokemon))
+
+'''
 
 '''
 for data in listePokemon:
@@ -209,7 +258,12 @@ for data in listePokemon:
 '''
 print("\n///////////////////////////\n")
 
-print(splitPokemonType(listePokemon[1]))
-print(splitPokemonType(listePokemon[4]))
+for data in listePokemon:
+    print(data.getData())
+    print("\n")
+
+
+
+
 
 
