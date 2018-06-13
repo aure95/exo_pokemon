@@ -35,6 +35,8 @@ class Pokemon:
         data.append(self.sp_defense)
         data.append(self.speed)
 
+        return data
+
     '''
     #pass= permet de redefinir constructeur
     def __init__(self):
@@ -111,8 +113,11 @@ with open("pokemon.html") as file:
                 if cpt >0:
                     if cpt<CONST_TAILLE_PARSE:
 
-          #              print(data.text+" "+str(cpt_parser))
-           #             liste.append(data.text)
+            #            print(data.text+" "+str(cpt_parser))
+                        liste.append(data.text)
+    #                    print("len liste = %i  cpt_parser= %i"%(len(liste),cpt_parser))
+
+
 
 
                         if cpt>CONST_TAILLE_PARSE:
@@ -120,12 +125,15 @@ with open("pokemon.html") as file:
 
 
 
+
                     else:
 
                         print("cpt_pokemon = %i\n" % (cpt_pokemon))
-                        pokemon_data = Pokemon(liste[0],liste[1],liste[2],liste[3],liste[4],liste[5],liste[6],liste[7])
-                        #print(pokemon_data.getData())
-                        listePokemon.append(pokemon_data)
+
+
+        #              pokemon_data = Pokemon(liste[0],liste[1],liste[2],liste[3],liste[4],liste[5],liste[6],liste[7])
+         #               print(pokemon_data.getData())
+         #               listePokemon.append(pokemon_data)
                         #cpt=0
                     #else:
                         # cpt_parser+=1
@@ -134,7 +142,23 @@ with open("pokemon.html") as file:
             cpt_parser += 1
 
 
-print("cpt_pokemon = %i"%(cpt_pokemon))
+      #  print(liste)
+
+
+     #?
+        if cpt_pokemon !=1:
+
+             pokemon_data = Pokemon(liste[0], liste[1], liste[2], liste[3], liste[4], liste[5], liste[6], liste[7])
+
+        #     print(pokemon_data.getData())
+             listePokemon.append(pokemon_data)
+
+
+print("\ncpt_pokemon = %i\n"%(cpt_pokemon))
+
+
+for pokemon in listePokemon:
+    print(pokemon.getData())
 
 
 '''
