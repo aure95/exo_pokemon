@@ -79,6 +79,48 @@ def __init__(self,name,type,total,attack,defense,sp_attack,sp_defense,speed ):
     self.speed=speed
     pass
 '''
+#////////////////////////////FUNCTION/////////////////////////////////
+
+def splitPokemonType(pokemon):
+
+    type=[]
+    pos=""
+    print(pokemon.getData()[1])
+    taille_lim=len(pokemon.getData()[1])
+    cpt=0
+
+
+    for i in range(len(pokemon.getData()[1])):
+      if pokemon.getData()[1][i].isupper():
+
+      #    print(pokemon.getData()[1][i])
+
+          #liste.append(pokemon.getData()[1][i])
+          pos+=str(i)
+          cpt+=1
+    if cpt>=2:
+
+        for i in range(len(pos)):
+
+            if(len(pos)-i-1)!=0:
+
+                if i < len(pos):
+                    print(i)
+                    type.append(pokemon.getData()[1][int(pos[i]):int(pos[(i+1)])])
+            else:
+                #type.append(pokemon.getData()[1][int(pos[i]):int(pos[len(pos)])])
+                type.append(pokemon.getData()[1][int(pos[i]):taille_lim])
+
+    else:
+        type.append(pokemon.getData()[1])
+
+    return type
+
+
+
+
+
+
 
 
 
@@ -104,7 +146,7 @@ with open("pokemon.html") as file:
         cpt_parser = 0
 
 
-        print("/////////////"+str(cpt_pokemon)+"/////////////////")
+    #    print("/////////////"+str(cpt_pokemon)+"/////////////////")
 
         for data in tab.find_all("td"):
 
@@ -113,7 +155,7 @@ with open("pokemon.html") as file:
                 if cpt >0:
                     if cpt<CONST_TAILLE_PARSE:
 
-            #            print(data.text+" "+str(cpt_parser))
+             #           print(data.text+" "+str(cpt_parser))
                         liste.append(data.text)
     #                    print("len liste = %i  cpt_parser= %i"%(len(liste),cpt_parser))
 
@@ -160,9 +202,14 @@ print("\ncpt_pokemon = %i\n"%(cpt_pokemon))
 for pokemon in listePokemon:
     print(pokemon.getData())
 
-
 '''
 for data in listePokemon:
     print(data.getData())
     print("\n")
 '''
+print("\n///////////////////////////\n")
+
+print(splitPokemonType(listePokemon[1]))
+print(splitPokemonType(listePokemon[4]))
+
+
