@@ -107,31 +107,31 @@ with open("pokemon.html") as file:
         for data in tab.find_all("td"):
 
 
-            if (cpt_parser>2 ):
-            if cpt >0:
-                if cpt<CONST_TAILLE_PARSE:
+            if (cpt_parser!= 0):
+                if cpt >0:
+                    if cpt<CONST_TAILLE_PARSE:
 
-                    print(data.text+" "+str(cpt_parser))
-                    liste.append(data.text)
-                    cpt_parser+=1
-
-                    if cpt>CONST_TAILLE_PARSE:
-                        cpt=0
+                        print(data.text+" "+str(cpt_parser))
+                        liste.append(data.text)
 
 
+                        if cpt>CONST_TAILLE_PARSE:
+                            cpt=0
 
+
+
+                    else:
+                        print("hola")
+                        #print("cpt_pokemon = %i\n" % (cpt_pokemon))
+              #          pokemon_data = Pokemon(liste[0],liste[1],liste[2],liste[3],liste[4],liste[5],liste[6],liste[7])
+                        #print(pokemon_data.getData())
+               #         listePokemon.append(pokemon_data)
+                        #cpt=0
+                    #else:
+                        # cpt_parser+=1
                 else:
-                    print("hola")
-                    #print("cpt_pokemon = %i\n" % (cpt_pokemon))
-          #          pokemon_data = Pokemon(liste[0],liste[1],liste[2],liste[3],liste[4],liste[5],liste[6],liste[7])
-                    #print(pokemon_data.getData())
-           #         listePokemon.append(pokemon_data)
-                    #cpt=0
-                #else:
-                    # cpt_parser+=1
-            else:
-                cpt+=1
-
+                    cpt+=1
+            cpt_parser += 1
 
 
 print("cpt_pokemon = %i"%(cpt_pokemon))
