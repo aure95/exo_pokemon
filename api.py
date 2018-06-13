@@ -3,10 +3,41 @@
 import hug
 
 from bs4 import BeautifulSoup
+import mysql.connector
+
 
 CONST_TAILLE_PARSE=9
 
-#/////////////////////////////////////////////////////////////////////////
+#//////////////////////////////FUNCTION SQL///////////////////////////////////////////
+
+conn = mysql.connector.connect(host="localhost", user="root", password="", database="test")
+cursor = conn.cursor()
+
+#   *plusieurs parametre possible
+def envoyerRequeteSQL(*requete):
+
+    for i in range(len(requete)):
+        cursor.execute(requete[i])
+
+    conn.commit()
+
+def initialisionDBSQl():
+
+    file=open("db_pokemon_config.txt","r")
+    envoyerRequeteSQL(file.readlines())
+
+
+    print("\n//////////////INITIAILISATION DB OK////////////////\n")
+
+
+
+
+def fermerConnexionSQL():
+
+    cursor.close()
+    conn.close()
+
+#////////////////////////////////////////////////////////////////////
 
 def splitPokemonType(pokemon):
 
@@ -261,6 +292,15 @@ print("\n///////////////////////////\n")
 for data in listePokemon:
     print(data.getData())
     print("\n")
+
+
+#///////////////INITialisation DB/////////////
+
+#initialisionDBSQl()
+
+envoyerRequeteSQL("USE db_pokemon;",
+                  "INSERT INTO type( `name`)VALUES('hola');")
+
 
 
 

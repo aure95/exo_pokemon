@@ -1,8 +1,6 @@
 drop database if exists db_pokemon;
 create database db_pokemon;
-
-create table POKEMON(
-  
+create table POKEMON( 
     id int PRIMARY KEY not null AUTO_INCREMENT,
     name varchar(50) not null,
     type_name varchar(50) not null,
@@ -12,15 +10,11 @@ create table POKEMON(
     defense int(10) not null,
     sp_atk int(10) not null,
     sp_def int(10) not null,
-    speed  int(10) not null
-      
+    speed  int(10) not null     
 ); 
-
-create table type(
-  
+create table type(  
     id integer primary key AUTO_INCREMENT not null,
-    name varchar(10) not null
-    
+    name varchar(10) not null    
 );
 
 
