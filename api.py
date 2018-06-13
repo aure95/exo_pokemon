@@ -111,8 +111,8 @@ with open("pokemon.html") as file:
                 if cpt >0:
                     if cpt<CONST_TAILLE_PARSE:
 
-                        print(data.text+" "+str(cpt_parser))
-                        liste.append(data.text)
+          #              print(data.text+" "+str(cpt_parser))
+           #             liste.append(data.text)
 
 
                         if cpt>CONST_TAILLE_PARSE:
@@ -121,11 +121,11 @@ with open("pokemon.html") as file:
 
 
                     else:
-                        print("hola")
-                        #print("cpt_pokemon = %i\n" % (cpt_pokemon))
-              #          pokemon_data = Pokemon(liste[0],liste[1],liste[2],liste[3],liste[4],liste[5],liste[6],liste[7])
+
+                        print("cpt_pokemon = %i\n" % (cpt_pokemon))
+                        pokemon_data = Pokemon(liste[0],liste[1],liste[2],liste[3],liste[4],liste[5],liste[6],liste[7])
                         #print(pokemon_data.getData())
-               #         listePokemon.append(pokemon_data)
+                        listePokemon.append(pokemon_data)
                         #cpt=0
                     #else:
                         # cpt_parser+=1
