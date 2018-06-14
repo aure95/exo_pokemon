@@ -6,6 +6,7 @@ import hug
 from bs4 import BeautifulSoup
 import mysql.connector
 
+INSERTION_POKEMON_TYPE=False
 
 CONST_TAILLE_PARSE=9
 
@@ -154,6 +155,10 @@ class Pokemon:
         self.type_splitted =[]
         self.name = name
         self.type_no_splitted = type_no_splited
+
+        self.setTypeSplited(splitType(self.type_no_splitted))
+
+
         self.total = total
         self.attack = attack
         self.defense = defense
@@ -163,11 +168,15 @@ class Pokemon:
 
         pass
 
+
+
     def getData(self):
 
         data = []
         data.append(self.name)
-        data.append(self.type_no_splitted)
+    #
+        data.append(self.type_splitted)
+    #
         data.append(self.total)
         data.append(self.attack)
         data.append(self.defense)
@@ -179,7 +188,7 @@ class Pokemon:
 
     def setTypeSplited(self,listeType):
 
-        self.type_no_splitted=listeType
+        self.type_splitted=listeType
         self.CONVERTED=True
 
 
@@ -338,8 +347,14 @@ for data in listePokemon:
 #envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('kj');")
 #envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('test');")
 
+if INSERTION_POKEMON_TYPE:
+    insertionPokemonTypeMySQL()
+    INSERTION_POKEMON_TYPE=True
 
-insertionPokemonTypeMySQL()
+
+for pok in listePokemon:
+    print(pok.getData())
+
 
 
 
