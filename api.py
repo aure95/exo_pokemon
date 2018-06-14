@@ -11,7 +11,7 @@ CONST_TAILLE_PARSE=9
 
 #//////////////////////////////FUNCTION SQL///////////////////////////////////////////
 
-conn = mysql.connector.connect(host="localhost", user="root", password="", database="test")
+conn = mysql.connector.connect(host="localhost", user="root", password="", database="db_pokemon")
 cursor = conn.cursor()
 
 #   *plusieurs parametre possible
@@ -20,11 +20,11 @@ cursor = conn.cursor()
 
 def envoyerRequeteSQL(requete):
 
-
     print(requete)
     cursor.execute(requete)
-
     conn.commit()
+
+
 
 def initialisionDBSQl():
 
@@ -36,7 +36,7 @@ def initialisionDBSQl():
 
     #parcours le fichier
 
-    envoyerRequeteSQL(instructions.encode('utf8'))
+    #envoyerRequeteSQL(instructions.encode('utf8'))
 
     #file.close()
     print("\n//////////////INITIAILISATION DB OK////////////////\n")
@@ -45,6 +45,7 @@ def fermerConnexionSQL():
 
     cursor.close()
     conn.close()
+
 
 #////////////////////////////////////////////////////////////////////
 
@@ -309,7 +310,11 @@ for data in listePokemon:
 
 
 #initialisionDBSQl()
-envoyerRequeteSQL("INSERT INTO type(`name`)VALUES('klk');")
+
+envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('kj');")
+envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('test');")
+
+
 
 
 
