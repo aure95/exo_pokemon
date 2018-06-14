@@ -9,6 +9,13 @@ import mysql.connector
 
 CONST_TAILLE_PARSE=9
 
+CONST_LISTE_TYPE_POK=("Normal","Fire","Water","Electric","Grass","Ice","Fighting","Poison","Ground","Flying","Psychic","Bug","Rock","Ghost","Dragon","Dark","Steel","Fairy")
+
+
+#//////////////////////////////CONST REQUETE///////////////////////////////////////////////////////////////
+
+CONST_REQUETE_INSERT_POK_TYPE=("INSERT INTO `type`(`name`) VALUES (",");")
+
 #//////////////////////////////FUNCTION SQL///////////////////////////////////////////
 
 conn = mysql.connector.connect(host="localhost", user="root", password="", database="db_pokemon")
@@ -84,6 +91,23 @@ def splitPokemonType(pokemon):
 
     return type
 
+def insertionPokemonTypeMySQL():
+
+
+    #print(CONST_REQUETE_INSERT_POK_TYPE)
+    for type in CONST_LISTE_TYPE_POK:
+        # print(type)
+       #print(CONST_REQUETE_INSERT_POK_TYPE[0]+"'"+type+"'"+CONST_REQUETE_INSERT_POK_TYPE[1])
+       envoyerRequeteSQL(CONST_REQUETE_INSERT_POK_TYPE[0]+"'"+type+"'"+CONST_REQUETE_INSERT_POK_TYPE[1])
+
+    print("//////////TYPE POKEMON INSERTED//////////")
+
+def insertionPokemonMySQL(listePokemon):
+    '''
+REQUETE_INSERTION_POKEMON=["INSERT INTO `pokemon`(`name`, `type_id`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`, `speed`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8],[value-9],[value-10])]
+    for pok in listePokemon:
+        envoyerRequeteSQL()
+'''
 
 def splitType(chaine):
 
@@ -311,11 +335,11 @@ for data in listePokemon:
 
 #initialisionDBSQl()
 
-envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('kj');")
-envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('test');")
+#envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('kj');")
+#envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('test');")
 
 
-
+insertionPokemonTypeMySQL()
 
 
 
