@@ -6,9 +6,11 @@ import hug
 from bs4 import BeautifulSoup
 import mysql.connector
 
-INSERTION_POKEMON_TYPE=False
+INSERTION_POKEMON_TYPE=True
 
 CONST_TAILLE_PARSE=9
+
+CONST_REQUETE_SELECT_POK_TYPE_VOID="SELECT count(*) FROM `type` WHERE 1 "
 
 CONST_LISTE_TYPE_POK=("Normal","Fire","Water","Electric","Grass","Ice","Fighting","Poison","Ground","Flying","Psychic","Bug","Rock","Ghost","Dragon","Dark","Steel","Fairy")
 
@@ -31,6 +33,18 @@ def envoyerRequeteSQL(requete):
     print(requete)
     cursor.execute(requete)
     conn.commit()
+
+def verifvoidTabletype():
+
+    response=0
+
+    cursor.execute(CONST_REQUETE_SELECT_POK_TYPE_VOID)
+    conn.commit()
+    response=int(cursor.fetchone())
+    return(response)
+
+
+
 
 
 
@@ -347,13 +361,22 @@ for data in listePokemon:
 #envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('kj');")
 #envoyerRequeteSQL("INSERT INTO `type`(`name`) VALUES ('test');")
 
+
+#print(verifvoidTabletype())
+
+#if verifvoidTabletype()!=0:
+ #   INSERTION_POKEMON_TYPE = False
+
+
 if INSERTION_POKEMON_TYPE:
     insertionPokemonTypeMySQL()
-    INSERTION_POKEMON_TYPE=True
+
+    
 
 
-for pok in listePokemon:
-    print(pok.getData())
+
+#for pok in listePokemon:
+ #   print(pok.getData())
 
 
 
