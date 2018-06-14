@@ -6,6 +6,8 @@ import hug
 from bs4 import BeautifulSoup
 import mysql.connector
 
+TABLE_TRUNCATE=("type","pokemon","assoc_pokemon_type")
+
 INSERTION_POKEMON_TYPE=True
 
 CONST_TAILLE_PARSE=9
@@ -18,6 +20,9 @@ CONST_LISTE_TYPE_POK=("Normal","Fire","Water","Electric","Grass","Ice","Fighting
 #//////////////////////////////CONST REQUETE///////////////////////////////////////////////////////////////
 
 CONST_REQUETE_INSERT_POK_TYPE=("INSERT INTO `type`(`name`) VALUES (",");")
+
+CONST_REQUETE_INSERTION_POKEMON=("INSERT INTO `pokemon`(`name`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`) VALUES (",");")
+
 
 #//////////////////////////////FUNCTION SQL///////////////////////////////////////////
 
@@ -70,6 +75,16 @@ def fermerConnexionSQL():
 
 
 #////////////////////////////////////////////////////////////////////
+def truncateTable():
+
+    cursor.execute("SET FOREIGN_KEY_CHECKS=0")
+    for i in range(len(TABLE_TRUNCATE)):
+        cursor.execute("TRUNCATE TABLE "+TABLE_TRUNCATE[i])
+
+    cursor.execute("SET FOREIGN_KEY_CHECKS=1")
+    conn.commit()
+
+    print("TABLE TRUNCATED "+str(TABLE_TRUNCATE))
 
 def splitPokemonType(pokemon):
 
@@ -106,6 +121,9 @@ def splitPokemonType(pokemon):
 
     return type
 
+
+
+
 def insertionPokemonTypeMySQL():
 
 
@@ -118,11 +136,49 @@ def insertionPokemonTypeMySQL():
     print("//////////TYPE POKEMON INSERTED//////////")
 
 def insertionPokemonMySQL(listePokemon):
-    '''
-REQUETE_INSERTION_POKEMON=["INSERT INTO `pokemon`(`name`, `type_id`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`, `speed`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8],[value-9],[value-10])]
+
+    requete="'"
+    cpt=0
+    cpt_bulbausaur=0
+
+    #Bulbasaur hardcoded car pas present lors du parsing (probleme dans boucle)
+
     for pok in listePokemon:
-        envoyerRequeteSQL()
-'''
+       print(pok.getData())
+       data=pok.getData()
+       cpt=0
+       requete = "'"
+
+
+       '''
+        # probleme avec "Farfetch'd"
+       if pok.getData()[0]=="Farfetch'd":
+           pokemon=Pokemon("Farfetchd",pok.getData()[1],pok.getData()[2],pok.getData()[3],pok.getData()[4],pok.getData()[5],pok.getData()[6],pok.getData()[7])
+           pok=pokemon
+       '''
+       for caract in data:
+
+            if cpt!=1:
+                if cpt_bulbausaur == 0:
+                    requete += "Bulbasaur','"
+                    cpt_bulbausaur = 1
+                else:
+                    if cpt==0:
+                        caract=caract.replace("'"," ")
+                        print(caract)
+                    if cpt<len(pok.getData()):
+                        requete+=caract+"',"
+                        requete+="'"
+            cpt+=1
+       requete=requete[0:(len(requete)-2)]
+
+      # print(requete)
+      # print(CONST_REQUETE_INSERTION_POKEMON[0] + requete + CONST_REQUETE_INSERTION_POKEMON[1])
+       envoyerRequeteSQL(CONST_REQUETE_INSERTION_POKEMON[0]+requete+CONST_REQUETE_INSERTION_POKEMON[1])
+
+
+
+
 
 def splitType(chaine):
 
@@ -346,9 +402,13 @@ for data in listePokemon:
 '''
 print("\n///////////////////////////\n")
 
+'''
 for data in listePokemon:
     print(data.getData())
     print("\n")
+'''
+
+
 
 
 #///////////////INITialisation DB/////////////
@@ -368,18 +428,12 @@ for data in listePokemon:
  #   INSERTION_POKEMON_TYPE = False
 
 
-if INSERTION_POKEMON_TYPE:
-    insertionPokemonTypeMySQL()
 
-    
+#if INSERTION_POKEMON_TYPE:
+truncateTable()
+insertionPokemonTypeMySQL()
 
-
-
-#for pok in listePokemon:
- #   print(pok.getData())
-
-
-
+insertionPokemonMySQL(listePokemon)
 
 
 
