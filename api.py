@@ -1,4 +1,5 @@
 #/usr/bin/python3
+# coding: utf8
 
 import hug
 
@@ -14,23 +15,31 @@ conn = mysql.connector.connect(host="localhost", user="root", password="", datab
 cursor = conn.cursor()
 
 #   *plusieurs parametre possible
-def envoyerRequeteSQL(*requete):
 
-    for i in range(len(requete)):
-        cursor.execute(requete[i])
+#https://stackoverflow.com/questions/15288594/update-database-with-multiple-sql-statments/15291171
+
+def envoyerRequeteSQL(requete):
+
+
+    print(requete)
+    cursor.execute(requete)
 
     conn.commit()
 
 def initialisionDBSQl():
 
-    file=open("db_pokemon_config.txt","r")
-    envoyerRequeteSQL(file.readlines())
+    #file=open("db_pokemon_config.txt","r")
+    #instructions="drop database if exists db_pokemon;create database db_pokemon;create table type(  id integer primary key AUTO_INCREMENT not null,name varchar(10) not null unique   );create table pokemon( id int PRIMARY KEY not null AUTO_INCREMENT,name varchar(50) not null unique,type_id integer not null,total int(10) not null,hp int(10) not null,attack int(10) not null,defense int(10) not null,sp_atk int(10) not null,sp_def int(10) not null,speed  int(10) not null);ALTER TABLE pokemon ENGINE=InnoDB;ALTER TABLE type ENGINE=InnoDB;ALTER TABLE pokemon ADD CONSTRAINT fk_type_name FOREIGN KEY (type_id) REFERENCES type(id);"
+
+    cpt=0
 
 
+    #parcours le fichier
+
+    envoyerRequeteSQL(instructions.encode('utf8'))
+
+    #file.close()
     print("\n//////////////INITIAILISATION DB OK////////////////\n")
-
-
-
 
 def fermerConnexionSQL():
 
@@ -298,8 +307,16 @@ for data in listePokemon:
 
 #initialisionDBSQl()
 
-envoyerRequeteSQL("USE db_pokemon;",
-                  "INSERT INTO type( `name`)VALUES('hola');")
+
+#initialisionDBSQl()
+envoyerRequeteSQL("INSERT INTO type(`name`)VALUES('klk');")
+
+
+
+
+
+
+fermerConnexionSQL()
 
 
 
