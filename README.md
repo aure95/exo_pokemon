@@ -1,5 +1,6 @@
 
-#### Pokémon 
+# Pokémon 
+-------------------------------
 
 
 -[x] Parsing 
@@ -20,13 +21,13 @@
 ### PREREQUIS
 -------------------------------
 
-* Importer db_pokemon.sql *OU* copier-coller NEW NEW dans db_pokemon_config.txt
+* Importer db_pokemon.sql **OU** copier-coller NEW NEW depuis *db_pokemon_config.txt*
 
-* Lancer le script init.py
+* Lancer le script *init.py*
 
-***ATTENDRE QUE LES INSERTIONS DANS LA BASE DE DONN2E S'EFFECTUENT****
+***ATTENDRE QUE LES INSERTIONS DANS LA BASE DE DONN2E S'EFFECTUENT***
 
-* Attendre que api.py lance *hug*
+* Attendre que *api.py* lance *hug*
 
 * Se connecter en [_localhost:8000/pokemon_](http:localhost:8000/pokemon)
  
