@@ -1,7 +1,18 @@
-#POCKET MONSTER#
+
+# POCKET MONSTER#
+
+------------------------------
+
+-[x] Parsing 
+-[x] Creation BDD
+-[x] Inserer données obtenues dans BDD
+-[X] Lancer *api.py* depuis *init.py*
+-[X] Effectuer CRUD *INCOMPLET*
+-[ ] Recuperer image
+-[ ] Virtualiser l'application avec Docker
 
 -------------------------------
-####PREREQUIS
+#### PREREQUIS
 -------------------------------
 
 * Importer db_pokemon.sql *OU* copier-coller NEW NEW dans db_pokemon_config.txt
@@ -12,9 +23,9 @@
 
 * Attendre que api.py lance *hug*
 
-* Se connecter en *localhost:8000/pokemon
+* Se connecter en [localhost:8000/pokemon](localhost:8000/pokemon)
  
-![alt text](https://vignette.wikia.nocookie.net/pokemon/images/8/81/001Bulbasaur_Pokemon_Mystery_Dungeon_Explorers_of_Sky.png/revision/latest?cb=20150105223818)
+![alt text](https://media.giphy.com/media/y3np46VBR0Muc/giphy.gif)
 
 
 
