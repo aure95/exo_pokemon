@@ -2,6 +2,7 @@
 # coding: utf8
 
 import hug
+import time
 
 from bs4 import BeautifulSoup
 import mysql.connector
@@ -12,17 +13,22 @@ INSERTION_POKEMON_TYPE=True
 
 CONST_TAILLE_PARSE=9
 
-CONST_REQUETE_SELECT_POK_TYPE_VOID="SELECT count(*) FROM `type` WHERE 1 "
+
 
 CONST_LISTE_TYPE_POK=("Normal","Fire","Water","Electric","Grass","Ice","Fighting","Poison","Ground","Flying","Psychic","Bug","Rock","Ghost","Dragon","Dark","Steel","Fairy")
 
+CONST_DEBUG_REQUETE=True
 
 #//////////////////////////////CONST REQUETE///////////////////////////////////////////////////////////////
 
 CONST_REQUETE_INSERT_POK_TYPE=("INSERT INTO `type`(`name`) VALUES (",");")
 
-CONST_REQUETE_INSERTION_POKEMON=("INSERT INTO `pokemon`(`name`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`) VALUES (",");")
+#CONST_REQUETE_INSERTION_POKEMON=("INSERT INTO `pokemon`(`name`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`) VALUES (",");")
 CONST_REQUETE_INSERTION_POKEMON=("INSERT INTO `pokemon`(`name`, `type_id`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`) VALUES (",");")
+
+CONST_REQUETE_INSERTION_ASSOC_POKEMON_TYPE=("INSERT INTO `assoc_pokemon_type`(`id_pokemon`, `id_type`) VALUES (",");")
+
+CONST_REQUETE_SELECT_POK_TYPE_VOID="SELECT count(*) FROM `type` WHERE 1 "
 
 #//////////////////////////////FUNCTION SQL///////////////////////////////////////////
 
@@ -35,7 +41,10 @@ cursor = conn.cursor()
 
 def envoyerRequeteSQL(requete):
 
-    print(requete)
+
+    if CONST_DEBUG_REQUETE:
+        print(requete)
+
     cursor.execute(requete)
     conn.commit()
 
@@ -90,7 +99,7 @@ def splitPokemonType(pokemon):
 
     type=[]
     pos=""
-    print(pokemon.getData()[1])
+   # print(pokemon.getData()[1])
     taille_lim=len(pokemon.getData()[1])
     cpt=0
 
@@ -161,7 +170,7 @@ def insertionPokemonMySQL(listePokemon):
     #Bulbasaur hardcoded car pas present lors du parsing (probleme dans boucle)
 
     for pok in listePokemon:
-       print(pok.getData())
+    #  print(pok.getData())
        data=pok.getData()
        cpt=0
        requete = "'"
@@ -184,7 +193,7 @@ def insertionPokemonMySQL(listePokemon):
                 '''
                 if cpt==0:
                     caract=caract.replace("'"," ")
-                    print(caract)
+                #    print(caract)
                 if cpt==2:
                     '''
                     if cpt_bulbausaur == 0:
@@ -204,9 +213,32 @@ def insertionPokemonMySQL(listePokemon):
       # print(CONST_REQUETE_INSERTION_POKEMON[0] + requete + CONST_REQUETE_INSERTION_POKEMON[1])
        envoyerRequeteSQL(CONST_REQUETE_INSERTION_POKEMON[0]+requete+CONST_REQUETE_INSERTION_POKEMON[1])
 
+    print("////////// POKEMON INSERTED //////////")
+
+def insertionAssocPokemonType(listePokemon):
+
+    cpt_index_pokemon=1
+    motif="'"
+
+    for pok in listePokemon:
+
+
+        for index_type in pok.getIndex():
+            requete = ""
+            requete+=CONST_REQUETE_INSERTION_ASSOC_POKEMON_TYPE[0]+motif+str(cpt_index_pokemon)+motif+","+motif+str(index_type)+motif+CONST_REQUETE_INSERTION_ASSOC_POKEMON_TYPE[1]
+            envoyerRequeteSQL(requete)
+
+    #envoyerRequeteSQL(requete)
+
+        #print(requete)
+        cpt_index_pokemon+=1
 
 
 
+
+
+
+    print("//////////ASSOC POKEMON TYPE INSERTED //////////")
 
 def splitType(chaine):
 
@@ -462,8 +494,14 @@ for data in listePokemon:
 
 
 #if INSERTION_POKEMON_TYPE:
+
+CONST_DEBUG_REQUETE=False
+
 truncateTable()
+
 insertionPokemonTypeMySQL()
+
+#Bulbazaur hardcoded car sinon fait planter les insert plus le temps résoudre probleme
 
 pokemeonBulbizaur=Pokemon("Bulbasaur",'GrassPoison','318', '45', '49', '49', '65', '65')
 
@@ -471,8 +509,8 @@ listePokemon[0]=pokemeonBulbizaur
 
 insertionPokemonMySQL(listePokemon)
 
-for pok in listePokemon:
-    print(pok.getIndex())
+insertionAssocPokemonType(listePokemon)
+
 
 
 
