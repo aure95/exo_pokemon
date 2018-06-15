@@ -1,7 +1,7 @@
 #POCKET MONSTER#
 
 -------------------------------
-####PREREQUIS####
+####PREREQUIS
 -------------------------------
 
 * Importer db_pokemon.sql *OU* copier-coller NEW NEW dans db_pokemon_config.txt
@@ -14,7 +14,7 @@
 
 * Se connecter en *localhost:8000/pokemon
  
-![alt text](https://vignette.wikia.nocookie.net/pokemon/images/8/81/001Bulbasaur_Pokemon_Mystery_Dungeon_Explorers_of_Sky.png/revision/latest?cb=20150105223818"Logo Title Text 1")
+![alt text](https://vignette.wikia.nocookie.net/pokemon/images/8/81/001Bulbasaur_Pokemon_Mystery_Dungeon_Explorers_of_Sky.png/revision/latest?cb=20150105223818)
 
 
 
