@@ -123,6 +123,23 @@ def splitPokemonType(pokemon):
 
 
 
+def chercherIndexAttack(data_type):
+
+    index=[]
+    list_data=list(CONST_LISTE_TYPE_POK)
+
+    for data in data_type:
+
+        if data_type[0] in list_data:
+            index.append(list_data.index(data)+1)
+
+    return index
+
+
+
+
+
+
 
 def insertionPokemonTypeMySQL():
 
@@ -224,11 +241,12 @@ class Pokemon:
         self.CONVERTED=False
         self.type_splitted =[]
         self.name = name
+        self.index=[]
         self.type_no_splitted = type_no_splited
 
         self.setTypeSplited(splitType(self.type_no_splitted))
 
-
+        self.index=chercherIndexAttack(self.type_splitted)
         self.total = total
         self.attack = attack
         self.defense = defense
@@ -236,9 +254,12 @@ class Pokemon:
         self.sp_defense = sp_defense
         self.speed = speed
 
+
         pass
 
+    def getIndex(self):
 
+        return self.index
 
     def getData(self):
 
@@ -358,7 +379,6 @@ with open("pokemon.html") as file:
 
 
 
-
                     else:
 
                         print("cpt_pokemon = %i\n" % (cpt_pokemon))
@@ -381,9 +401,10 @@ with open("pokemon.html") as file:
      #?
         if cpt_pokemon !=1:
 
+
              pokemon_data = Pokemon(liste[0], liste[1], liste[2], liste[3], liste[4], liste[5], liste[6], liste[7])
 
-        #     print(pokemon_data.getData())
+             print(pokemon_data.getData())
              listePokemon.append(pokemon_data)
 
 
@@ -434,6 +455,9 @@ truncateTable()
 insertionPokemonTypeMySQL()
 
 insertionPokemonMySQL(listePokemon)
+
+for pok in listePokemon:
+    print(pok.getIndex())
 
 
 
