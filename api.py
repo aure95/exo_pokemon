@@ -22,7 +22,7 @@ CONST_LISTE_TYPE_POK=("Normal","Fire","Water","Electric","Grass","Ice","Fighting
 CONST_REQUETE_INSERT_POK_TYPE=("INSERT INTO `type`(`name`) VALUES (",");")
 
 CONST_REQUETE_INSERTION_POKEMON=("INSERT INTO `pokemon`(`name`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`) VALUES (",");")
-
+CONST_REQUETE_INSERTION_POKEMON=("INSERT INTO `pokemon`(`name`, `type_id`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`) VALUES (",");")
 
 #//////////////////////////////FUNCTION SQL///////////////////////////////////////////
 
@@ -176,16 +176,27 @@ def insertionPokemonMySQL(listePokemon):
        for caract in data:
 
             if cpt!=1:
+                '''
                 if cpt_bulbausaur == 0:
                     requete += "Bulbasaur','"
                     cpt_bulbausaur = 1
                 else:
-                    if cpt==0:
-                        caract=caract.replace("'"," ")
-                        print(caract)
-                    if cpt<len(pok.getData()):
-                        requete+=caract+"',"
-                        requete+="'"
+                '''
+                if cpt==0:
+                    caract=caract.replace("'"," ")
+                    print(caract)
+                if cpt==2:
+                    '''
+                    if cpt_bulbausaur == 0:
+                        requete+="tamera"
+                        cpt_bulbausaur = 1
+                    else:
+                        requete += str(pok.getIndex()[0])
+                    '''
+                    requete += str(pok.getIndex()[0])+"','"
+                if cpt<len(pok.getData()):
+                    requete+=caract+"',"
+                    requete+="'"
             cpt+=1
        requete=requete[0:(len(requete)-2)]
 
@@ -453,6 +464,10 @@ for data in listePokemon:
 #if INSERTION_POKEMON_TYPE:
 truncateTable()
 insertionPokemonTypeMySQL()
+
+pokemeonBulbizaur=Pokemon("Bulbasaur",'GrassPoison','318', '45', '49', '49', '65', '65')
+
+listePokemon[0]=pokemeonBulbizaur
 
 insertionPokemonMySQL(listePokemon)
 
