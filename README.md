@@ -1,7 +1,6 @@
 
-# POCKET MONSTER
+#### Pokémon 
 
-------------------------------
 
 -[x] Parsing 
 
@@ -18,7 +17,7 @@
 -[ ] Virtualiser l'application avec Docker
 
 -------------------------------
-#### PREREQUIS
+### PREREQUIS
 -------------------------------
 
 * Importer db_pokemon.sql *OU* copier-coller NEW NEW dans db_pokemon_config.txt
