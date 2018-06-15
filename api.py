@@ -13,36 +13,44 @@ def envoyerRequete(requete):
     conn.close()
 
 def envoyerRequeteReponse(requete):
+    reponse=[]
     conn = mysql.connector.connect(host="localhost", user="root", password="", database="db_pokemon")
     cursor = conn.cursor()
     cursor.execute(requete)
-    reponse=cursor.fetchone()
+
+    for data in cursor:
+        reponse.append(data)
+
+
     conn.commit()
     cursor.close()
     conn.close()
     return reponse
 
 
-
+'''
 @hug.get('/PUT/pokemon')
-def happy_birthday():
-    conn = mysql.connector.connect(host="localhost", user="root", password="", database="db_pokemon")
-    cursor = conn.cursor()
-    envoyerRequete("INSERT INTO `assoc_pokemon_type`(`id_pokemon`, `id_type`) VALUES ('1','1')")
-    conn.commit()
-    cursor.close()
-    conn.close()
+def happy_birthday(name:hug.type.text,type_id:hug.type.text,total:hug.type.number,hp:hug.type.text,attack:hug.type.number,defense:type.number,sp_atk:hug.type.number,sp_def:hug.type.number):
+    
+   # reponse=envoyerRequeteReponse()
+
+    #envoyerRequete("INSERT INTO `pokemon`( `name`, `type_id`, `total`, `hp`, `attack`, `defense`, `sp_atk`, `sp_def`) VALUES ("+"'"+name+"''",)")
+    
     """Says happy birthday to pokemon"""
+
     return "INSERT INTO `assoc_pokemon_type`(`id_pokemon`, `id_type`) VALUES ('1','1')"
+'''
 
 @hug.get('/GET/pokemon')
 def pokemon(id :hug.types.number):
-    conn = mysql.connector.connect(host="localhost", user="root", password="", database="db_pokemon")
-    cursor = conn.cursor()
-    reponse=envoyerRequeteReponse("SELECT * FROM `pokemon` WHERE id="+str(id))
-    conn.commit()
-    cursor.close()
-    conn.close()
+
+    reponse=""
+
+    rep=envoyerRequeteReponse("SELECT * FROM `pokemon` WHERE id="+str(id))
+
+    for r in rep:
+        reponse+=str(rep)
+
     """Says happy birthday to pokemon"""
     return reponse
 
@@ -50,13 +58,8 @@ def pokemon(id :hug.types.number):
 def all_pokemon():
 
     liste=[]
-
-    conn = mysql.connector.connect(host="localhost", user="root", password="", database="db_pokemon")
-    cursor = conn.cursor()
     reponse=envoyerRequeteReponse("SELECT * FROM `pokemon` WHERE 1")
-    conn.commit()
-    cursor.close()
-    conn.close()
+
 
     for data in reponse:
         liste.append(data)
