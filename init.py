@@ -526,8 +526,8 @@ print("Gotta Catch \'Em All\n")
 #"lance" api.py
 
 #subprocess.call('python', 'api.py')
-subprocess.Popen(["python", "api.py"])
-
+#subprocess.Popen(["python", "api.py"])
+subprocess.Popen(["hug", "-f","api.py"])
 print("fin init\n")
 
 
