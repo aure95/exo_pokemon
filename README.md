@@ -1,14 +1,20 @@
 
-# POCKET MONSTER#
+# POCKET MONSTER
 
 ------------------------------
 
 -[x] Parsing 
+
 -[x] Creation BDD
+
 -[x] Inserer données obtenues dans BDD
+
 -[X] Lancer *api.py* depuis *init.py*
+
 -[X] Effectuer CRUD *INCOMPLET*
--[ ] Recuperer image
+
+-[ ] Récuperer image
+
 -[ ] Virtualiser l'application avec Docker
 
 -------------------------------
