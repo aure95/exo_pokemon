@@ -29,7 +29,7 @@ ALTER TABLE assoc_pokemon_type ADD CONSTRAINT fk_id_type FOREIGN KEY (id_type) R
 
 
 
-///////////////////////NEW ////////////////////////
+///////////////////////OLD////////////////////////
 drop database if exists db_pokemon;
 create database db_pokemon;
 create table type(  id integer primary key AUTO_INCREMENT not null,name varchar(10) not null unique   );
