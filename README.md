@@ -23,7 +23,7 @@
 
 * Attendre que api.py lance *hug*
 
-* Se connecter en [localhost:8000/pokemon](localhost:8000/pokemon)
+* Se connecter en [_localhost:8000/pokemon_](http:localhost:8000/pokemon)
  
 ![alt text](https://media.giphy.com/media/y3np46VBR0Muc/giphy.gif)
 
